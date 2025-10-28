@@ -2,113 +2,102 @@
 // Autores: Aline Polycarpo, Danilo Blum, Luciana Nunes
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Ajuste de altura da página (DESKTOP) ---
-  (function () {
-    const sidebarEl = document.getElementById("sidebar");
-    const contentEl = document.getElementsByClassName("content")[0];
-    const pageTitleEl = document.getElementById("page-title");
-    const footerEl = document.getElementsByTagName("footer")[0];
+	// --- Ajuste de altura da página (DESKTOP) ---
 
-    if (!sidebarEl || !contentEl || !pageTitleEl || !footerEl) return;
+	console.log("teste1");
 
-    const sectionsToDiscount = pageTitleEl.offsetHeight + footerEl.offsetHeight;
+	(function () {
+		const sidebarEl = document.getElementById("sidebar");
+		const contentEl = document.getElementsByClassName("content")[0];
+		const pageTitleEl = document.getElementById("page-title");
+		const footerEl = document.getElementsByTagName("footer")[0];
 
-    if (sidebarEl.offsetHeight > contentEl.offsetHeight) {
-      const pageContent = document.getElementById("page-content");
-      if (pageContent) {
-        pageContent.style.minHeight =
-          sidebarEl.offsetHeight - sectionsToDiscount + "px";
-      }
-    }
-  })();
+		if (!sidebarEl || !contentEl || !pageTitleEl || !footerEl) return;
 
-  // --- Renderização da sidebar ---
-  const sidebarRoot = document.getElementById("sidebar");
+		const sectionsToDiscount = pageTitleEl.offsetHeight + footerEl.offsetHeight;
 
-  if (!sidebarRoot) return;
+		if (sidebarEl.offsetHeight > contentEl.offsetHeight) {
+			const pageContent = document.getElementById("page-content");
+			if (pageContent) {
+				pageContent.style.minHeight = sidebarEl.offsetHeight - sectionsToDiscount + "px";
+			}
+		}
+	})();
 
-  function getCurrentPath() {
-    return window.location.pathname.replace(/\/$/, "");
-  }
+	// --- Renderização da sidebar ---
+	const sidebarRoot = document.getElementById("sidebar");
 
-  function getBasePath() {
-    const pathParts = window.location.pathname.split("/").filter(Boolean);
+	if (!sidebarRoot) return;
 
-    // Detecta se o primeiro segmento parece um módulo (ex: "modulo1", "modulo2", etc.)
-    const isModule = /^modulo\d+/i.test(pathParts[0]);
+	function getCurrentPath() {
+		return window.location.pathname.replace(/\/$/, "");
+	}
 
-    // Se o primeiro segmento for um módulo, significa que estamos na raiz (sem pasta base)
-    if (isModule) {
-      return "";
-    }
+	function getBasePath() {
+		const pathParts = window.location.pathname.split("/").filter(Boolean);
 
-    // Caso contrário, assume que o primeiro segmento é a pasta base (ex: "fiocruz-mpox")
-    return pathParts.length > 0 ? "/" + pathParts[0] : "";
-  }
+		// Encontra o índice da primeira pasta que parece um módulo (ex: "modulo1", "modulo2", etc.)
+		const moduleIndex = pathParts.findIndex((part) => /^modulo\d+/i.test(part));
 
+		// Se encontrou um módulo, retorna tudo que vem antes dele como basePath
+		if (moduleIndex > 0) {
+			return "/" + pathParts.slice(0, moduleIndex).join("/");
+		}
 
-  const hasActiveChild = (items) =>
-    items.some(
-      (item) => {
-        const fullPath = getBasePath() + item.path;
-        return (
-          (item.type === "link" && fullPath === getCurrentPath()) ||
-          (item.type === "accordion" && hasActiveChild(item.items))
-        );
-      }
-    );
+		// Se não encontrou módulo, não há base (raiz)
+		return "";
+	}
 
+	const hasActiveChild = (items) =>
+		items.some((item) => {
+			const fullPath = getBasePath() + item.path;
+			return (item.type === "link" && fullPath === getCurrentPath()) || (item.type === "accordion" && hasActiveChild(item.items));
+		});
 
-  const renderItems = (items, parentId, typeLevel = "module") =>
-    items
-      .map((item, index) => {
-        if (item.type === "link") {
-          const iconClass = item.icon ? `icon-${item.icon}` : "";
-          return `
+	const renderItems = (items, parentId, typeLevel = "module") =>
+		items
+			.map((item, index) => {
+				if (item.type === "link") {
+					const iconClass = item.icon ? `icon-${item.icon}` : "";
+					return `
             <a href="${getBasePath() + item.path}" 
    class="list-group-item link-item ${iconClass} ${getCurrentPath() === getBasePath() + item.path ? "active" : ""}">
   ${item.title}
 </a>
           `;
-        }
+				}
 
-        if (item.type === "accordion") {
-          const accordionId = `${parentId}-${index}`;
-          const isActive = hasActiveChild(item.items);
-          const accordionClass =
-            typeLevel === "module" ? "accordion-module" : "accordion-lesson";
+				if (item.type === "accordion") {
+					const accordionId = `${parentId}-${index}`;
+					const isActive = hasActiveChild(item.items);
+					const accordionClass = typeLevel === "module" ? "accordion-module" : "accordion-lesson";
 
-          return `
+					return `
             <div class="accordion-item ${accordionClass}">
               <h2 class="accordion-header" id="${accordionId}-header">
-                <button class="accordion-button ${isActive ? "" : "collapsed"
-            }" type="button" 
+                <button class="accordion-button ${isActive ? "" : "collapsed"}" type="button" 
                   data-bs-toggle="collapse" 
                   data-bs-target="#${accordionId}">
                   ${item.title}
                 </button>
               </h2>
               <div id="${accordionId}" 
-                   class="accordion-collapse collapse ${isActive ? "show" : ""
-            }"
-                   ${typeLevel === "lesson"
-              ? `data-bs-parent="#${parentId}"`
-              : ""
-            }>
+                   class="accordion-collapse collapse ${isActive ? "show" : ""}"
+                   ${typeLevel === "lesson" ? `data-bs-parent="#${parentId}"` : ""}>
                 <div class="accordion-body list-group">
                   ${renderItems(item.items, accordionId, "lesson")}
                 </div>
               </div>
             </div>
           `;
-        }
+				}
 
-        return `<span class="list-group-item disabled">Tipo desconhecido</span>`;
-      })
-      .join("");
+				return `<span class="list-group-item disabled">Tipo desconhecido</span>`;
+			})
+			.join("");
 
-  const renderSidebar = () => {
-    sidebarRoot.innerHTML = `
+	const renderSidebar = () => {
+		sidebarRoot.innerHTML = `
       <div class="sidebar__inner">
         <!-- Seção Mobile -->
         <section class="sidebar__section mobile-only">
@@ -136,15 +125,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="sidebar__section-accordion">
             <div class="accordion" id="sidebarAccordion">
               ${course.modules
-        .map((module, moduleIndex) => {
-          const moduleId = `module-${moduleIndex}`;
-          const isActive = hasActiveChild(module.items);
+								.map((module, moduleIndex) => {
+									const moduleId = `module-${moduleIndex}`;
+									const isActive = hasActiveChild(module.items);
 
-          return `
+									return `
                     <div class="accordion-item accordion-module">
                       <h2 class="accordion-header" id="${moduleId}-header">
-                        <button class="accordion-button ${isActive ? "" : "collapsed"
-            }" 
+                        <button class="accordion-button ${isActive ? "" : "collapsed"}" 
                           type="button" 
                           data-bs-toggle="collapse" 
                           data-bs-target="#${moduleId}">
@@ -152,141 +140,130 @@ document.addEventListener("DOMContentLoaded", () => {
                         </button>
                       </h2>
                       <div id="${moduleId}" 
-                           class="accordion-collapse collapse ${isActive ? "show" : ""
-            }" 
+                           class="accordion-collapse collapse ${isActive ? "show" : ""}" 
                            data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body list-group accordion" 
                              id="${moduleId}-lessons">
-                          ${renderItems(
-              module.items,
-              `${moduleId}-lessons`,
-              "lesson"
-            )}
+                          ${renderItems(module.items, `${moduleId}-lessons`, "lesson")}
                         </div>
                       </div>
                     </div>
                   `;
-        })
-        .join("")}
+								})
+								.join("")}
             </div>
           </div>
         </section>
       </div>
     `;
-  };
+	};
 
-  // --- Atualiza visual do link ativo dinamicamente ---
-  const updateActiveState = () => {
-    const links = sidebarRoot.querySelectorAll(".link-item");
-    const current = getCurrentPath();
+	// --- Atualiza visual do link ativo dinamicamente ---
+	const updateActiveState = () => {
+		const links = sidebarRoot.querySelectorAll(".link-item");
+		const current = getCurrentPath();
 
-    links.forEach((link) => {
-      if (link.getAttribute("href") === current) {
-        link.classList.add("active");
+		links.forEach((link) => {
+			if (link.getAttribute("href") === current) {
+				link.classList.add("active");
 
-        // Abre accordions ancestrais
-        const collapse = link.closest(".accordion-collapse");
-        if (collapse && !collapse.classList.contains("show")) {
-          const button = collapse
-            .closest(".accordion-item")
-            ?.querySelector(".accordion-button");
-          button?.classList.remove("collapsed");
-          collapse.classList.add("show");
-        }
-      } else {
-        link.classList.remove("active");
-      }
-    });
-  };
+				// Abre accordions ancestrais
+				const collapse = link.closest(".accordion-collapse");
+				if (collapse && !collapse.classList.contains("show")) {
+					const button = collapse.closest(".accordion-item")?.querySelector(".accordion-button");
+					button?.classList.remove("collapsed");
+					collapse.classList.add("show");
+				}
+			} else {
+				link.classList.remove("active");
+			}
+		});
+	};
 
-  // --- Render e inicializa ---
-  renderSidebar();
-  updateActiveState();
+	// --- Render e inicializa ---
+	renderSidebar();
+	updateActiveState();
 
-  // --- Observa mudanças de rota (pushState / replaceState / popstate) ---
-  const observeNavigation = () => {
-    const _wrap = (type) => {
-      const orig = history[type];
-      return function () {
-        const rv = orig.apply(this, arguments);
-        // Aguarda o DOM atualizar antes de disparar o evento
-        setTimeout(() => window.dispatchEvent(new Event("locationchange")), 50);
-        return rv;
-      };
-    };
+	// --- Observa mudanças de rota (pushState / replaceState / popstate) ---
+	const observeNavigation = () => {
+		const _wrap = (type) => {
+			const orig = history[type];
+			return function () {
+				const rv = orig.apply(this, arguments);
+				// Aguarda o DOM atualizar antes de disparar o evento
+				setTimeout(() => window.dispatchEvent(new Event("locationchange")), 50);
+				return rv;
+			};
+		};
 
-    history.pushState = _wrap("pushState");
-    history.replaceState = _wrap("replaceState");
+		history.pushState = _wrap("pushState");
+		history.replaceState = _wrap("replaceState");
 
-    window.addEventListener("popstate", () =>
-      setTimeout(() => window.dispatchEvent(new Event("locationchange")), 50)
-    );
+		window.addEventListener("popstate", () => setTimeout(() => window.dispatchEvent(new Event("locationchange")), 50));
 
-    // Evento unificado para qualquer mudança de rota
-    window.addEventListener("locationchange", updateActiveState);
-  };
+		// Evento unificado para qualquer mudança de rota
+		window.addEventListener("locationchange", updateActiveState);
+	};
 
-  observeNavigation();
+	observeNavigation();
 
-  // --- StickySidebar ---
+	// --- StickySidebar ---
 
-  // --- StickySidebar (ativo apenas no desktop) ---
-  if (typeof StickySidebar !== "undefined" && window.innerWidth > 992) {
-    new StickySidebar("#sidebar", {
-      topSpacing: 0,
-      bottomSpacing: 0,
-      containerSelector: ".content",
-      innerWrapperSelector: ".sidebar__inner",
-    });
-    console.log("StickySidebar ativado (desktop)");
-  }
+	// --- StickySidebar (ativo apenas no desktop) ---
+	if (typeof StickySidebar !== "undefined" && window.innerWidth > 992) {
+		new StickySidebar("#sidebar", {
+			topSpacing: 0,
+			bottomSpacing: 0,
+			containerSelector: ".content",
+			innerWrapperSelector: ".sidebar__inner",
+		});
+		console.log("StickySidebar ativado (desktop)");
+	}
 
+	// --- Botão para recolher / expandir sidebar (DESKTOP) ---
+	const hidebarButton = document.getElementById("hidebar-button");
+	const pageWrapper = document.getElementById("page");
+	const sidebarInner = document.querySelector(".sidebar__inner");
 
-  // --- Botão para recolher / expandir sidebar (DESKTOP) ---
-  const hidebarButton = document.getElementById("hidebar-button");
-  const pageWrapper = document.getElementById("page");
-  const sidebarInner = document.querySelector(".sidebar__inner");
+	if (hidebarButton && pageWrapper && sidebarInner) {
+		hidebarButton.addEventListener("click", () => {
+			const sidebarInnerPosition = window.getComputedStyle(sidebarInner).position;
+			const isFixed = sidebarInnerPosition === "fixed";
 
-  if (hidebarButton && pageWrapper && sidebarInner) {
-    hidebarButton.addEventListener("click", () => {
-      const sidebarInnerPosition = window.getComputedStyle(sidebarInner).position;
-      const isFixed = sidebarInnerPosition === "fixed";
+			if (!sidebarRoot.classList.contains("hide")) {
+				sidebarRoot.style.marginLeft = "-370px";
+				if (isFixed) sidebarInner.style.left = "-370px";
+				hidebarButton.style.left = "10px";
+				pageWrapper.style.marginLeft = "10px";
+				hidebarButton.classList.toggle("hidebar-button--close");
+				sidebarRoot.classList.add("hide");
+			} else {
+				sidebarRoot.style.marginLeft = "0px";
+				if (isFixed) sidebarInner.style.left = "0px";
+				hidebarButton.style.left = "380px";
+				pageWrapper.style.marginLeft = "380px";
+				hidebarButton.classList.toggle("hidebar-button--close");
+				sidebarRoot.classList.remove("hide");
+			}
+		});
+	}
 
-      if (!sidebarRoot.classList.contains("hide")) {
-        sidebarRoot.style.marginLeft = "-370px";
-        if (isFixed) sidebarInner.style.left = "-370px";
-        hidebarButton.style.left = "10px";
-        pageWrapper.style.marginLeft = "10px";
-        hidebarButton.classList.toggle("hidebar-button--close");
-        sidebarRoot.classList.add("hide");
-      } else {
-        sidebarRoot.style.marginLeft = "0px";
-        if (isFixed) sidebarInner.style.left = "0px";
-        hidebarButton.style.left = "380px";
-        pageWrapper.style.marginLeft = "380px";
-        hidebarButton.classList.toggle("hidebar-button--close");
-        sidebarRoot.classList.remove("hide");
-      }
-    });
-  }
+	// --- Mobile toggle ---
+	const sidebarToggleOpen = document.querySelector(".mobile-toggle-open .mobile-toggle__button");
+	const sidebarToggleClose = document.querySelector(".mobile-toggle-close .mobile-toggle__button");
+	const htmlPage = document.querySelector("html");
 
-  // --- Mobile toggle ---
-  const sidebarToggleOpen = document.querySelector(".mobile-toggle-open .mobile-toggle__button");
-  const sidebarToggleClose = document.querySelector(".mobile-toggle-close .mobile-toggle__button");
-  const htmlPage = document.querySelector("html");
+	if (sidebarToggleOpen) {
+		sidebarToggleOpen.addEventListener("click", () => {
+			sidebarRoot.classList.add("sidebar-show");
+			htmlPage.classList.add("html-overflow");
+		});
+	}
 
-  if (sidebarToggleOpen) {
-    sidebarToggleOpen.addEventListener("click", () => {
-      sidebarRoot.classList.add("sidebar-show");
-      htmlPage.classList.add('html-overflow');
-    });
-  }
-
-  if (sidebarToggleClose) {
-    sidebarToggleClose.addEventListener("click", () => {
-      sidebarRoot.classList.remove("sidebar-show");
-      htmlPage.classList.remove('html-overflow');
-    });
-  }
-
+	if (sidebarToggleClose) {
+		sidebarToggleClose.addEventListener("click", () => {
+			sidebarRoot.classList.remove("sidebar-show");
+			htmlPage.classList.remove("html-overflow");
+		});
+	}
 });
