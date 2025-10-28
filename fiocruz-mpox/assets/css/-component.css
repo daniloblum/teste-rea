@@ -1,0 +1,219 @@
+/* SYSTEM COMPONENTS VARIABLES */
+
+@import '-system.css';
+
+:root {
+	/* --- BASE COMPONENTS --- */
+
+	/* Headers */
+
+	/* --fio-component-heads-family: var(--fio-sys-typography-headline-medium-family);
+	--fio-component-heads-color: var(--fio-sys-color-primary-medium);
+	--fio-component-heads-height: var(--fio-sys-typography--medium-line-height);
+	--fio-component-heads-size: var(--fio-sys-typography-paragraph-medium-size);
+	--fio-component-heads-tracking: var(--fio-sys-typography-paragraph-medium-tracking);
+	--fio-component-heads-weight: var(--fio-sys-typography-paragraph-medium-weight); */
+
+	/* Link */
+	/* --fio-component-link-color: var(--fio-sys-color-accent-medium);
+	--fio-component-link-color-contrast: var(--fio-sys-color-accent-medium-contrast);
+	--fio-component-link-color--hover: var(--fio-sys-color-accent-dark);
+	--fio-component-link-color-contrast--hover: var(--fio-sys-color-accent-dark-contrast);
+	--fio-component-link-color--focus: var(--fio-sys-color-neutral-black); */
+
+	/* BUTTONS */
+
+	/* Buttons base */
+
+	--fio-component-button-family: var(--fio-sys-typography-paragraph-family);
+	--fio-component-button-size: var(--fio-sys-typography-paragraph-size);
+	--fio-component-button-decoration: none;
+	--fio-component-button-transform: none;
+
+	--fio-component-button-border-radius: var(--fio-sys-spacing-border-radius-full);
+	--fio-component-button-border-width: var(--fio-sys-spacing-border-width-md);
+
+	--fio-component-button-padding-x: var(--fio-sys-spacing-padding-md);
+	--fio-component-button-padding-y: var(--fio-sys-spacing-padding-xs);
+	--fio-component-button-gap: var(--fio-sys-spacing-padding-sm);
+
+	/* Button base - small */
+	--fio-component-button-sm-size: var(--fio-sys-typography-paragraph-small-size);
+	--fio-component-button-sm-padding-x: calc(var(--fio-component-button-padding-x) * 1);
+	--fio-component-button-sm-padding-y: calc(var(--fio-component-button-padding-y) * 1);
+	--fio-component-button-sm-gap: var(--fio-sys-spacing-padding-sm);
+
+	/* Button base - large */
+	--fio-component-button-lg-size: var(--fio-sys-typography-paragraph-large-size);
+	--fio-component-button-lg-padding-x: calc(var(--fio-component-button-padding-x) * 1);
+	--fio-component-button-lg-padding-y: calc(var(--fio-component-button-padding-y) * 1);
+	--fio-component-button-lg-gap: var(--fio-sys-spacing-padding-sm);
+
+	/* Button primary color */
+	--fio-component-button-color-primary: var(--fio-sys-color-accent-medium);
+	--fio-component-button-color-primary--hover: var(--fio-sys-color-accent-dark);
+	--fio-component-button-outline-color-primary--hover: var(--fio-sys-color-accent-dark-contrast);
+	--fio-component-button-text-color-primary--hover: var(--fio-sys-color-accent-dark-contrast);
+	--fio-component-button-color-primary--active: var(--fio-sys-color-accent-light-contrast);
+
+	/* Button secondary color */
+	--fio-component-button-color-secondary: var(--fio-sys-color-secondary-accent-medium);
+	--fio-component-button-color-secondary--hover: var(--fio-sys-color-secondary-accent-dark);
+	--fio-component-button-outline-color-secondary--hover: var(--fio-sys-color-secondary-dark-contrast);
+	--fio-component-button-text-color-secondary--hover: var(--fio-sys-color-secondary-dark-contrast);
+	--fio-component-button-color-secondary--active: var(--fio-sys-color-secondary-accent-light-contrast);
+
+	/* Button white color */
+	--fio-component-button-color-white: var(--fio-sys-color-neutral-white);
+	--fio-component-button-color-white--hover: var(--fio-sys-color-neutral-white--hover);
+
+	/* Button black color */
+	--fio-component-button-color-black: var(--fio-sys-color-neutral-black);
+
+	/* Button disable color */
+	--fio-component-button-color-disable: var(--fio-sys-color-neutral-medium);
+	--fio-component-button-color-disable-contrast: var(--fio-sys-color-neutral-extra-light);
+
+	/* Button focus color */
+	--fio-component-button-color--focus: var(--fio-sys-color-neutral-black);
+
+	/* CARD */
+
+	/* Card - base */
+	--fio-component-card-background: var(--fio-sys-color-neutral-white);
+	--fio-component-card-border-color: var(--fio-sys-color-neutral-light);
+	--fio-component-card-border-width: var(--fio-sys-spacing-border-width-sm);
+	--fio-component-card-border-radius: var(--fio-sys-spacing-border-radius-lg);
+
+	/* Card - elevation */
+	--fio-component-card-elevation-low: var(--fio-sys-elevation-sm);
+	--fio-component-card-elevation-medium: var(--fio-sys-elevation-md);
+	--fio-component-card-elevation-high: var(--fio-sys-elevation-lg);
+	--fio-component-card-elevation-higher: var(--fio-sys-elevation-xl);
+
+	/* Card - primary color */
+	--fio-component-card-background-primary: var(--fio-sys-color-primary-medium-contrast);
+	--fio-component-card-border-color-primary: var(--fio-sys-color-primary-dark-contrast);
+
+	/* Card - thumb */
+	--fio-component-card-thumb-padding: var(--fio-sys-spacing-padding-0);
+	--fio-component-card-thumb-border-radius: var(--fio-sys-spacing-border-radius-0);
+
+	/* Card - header */
+	--fio-component-card-header-padding-y: var(--fio-sys-spacing-padding-md);
+	--fio-component-card-header-padding-x: var(--fio-sys-spacing-padding-md);
+
+	--fio-component-card-header-background: var(--fio-sys-color-primary-medium-contrast);
+	--fio-component-card-header-family: var(--fio-sys-typography-title-small-family);
+	--fio-component-card-header-line-height: var(--fio-sys-typography-title-small-line-height);
+	--fio-component-card-header-size: var(--fio-sys-typography-title-small-size);
+	--fio-component-card-header-tracking: var(--fio-sys-typography-title-small-tracking);
+	--fio-component-card-header-weight: var(--fio-sys-typography-title-small-weight);
+
+	/* Card - body */
+	--fio-component-card-body-padding-y: var(--fio-sys-spacing-padding-lg);
+	--fio-component-card-body-padding-x: var(--fio-sys-spacing-padding-lg);
+
+	/* Card - footer */
+	--fio-component-card-footer-padding-y: var(--fio-sys-spacing-padding-md);
+	--fio-component-card-footer-padding-x: var(--fio-sys-spacing-padding-md);
+
+	/* BOX MODAL */
+
+	--fio-component-modal-background-color: var(--fio-component-card-background);
+	--fio-component-modal-border-color: var(--fio-component-card-border-color);
+	--fio-component-modal-border-width: var(--fio-component-card-border-width);
+	--fio-component-modal-border-radius: var(--fio-component-card-border-radius);
+
+	--fio-component-modal-header-family: var(--fio-sys-typography-title-small-family);
+	--fio-component-modal-header-line-height: var(--fio-sys-typography-title-small-line-height);
+	--fio-component-modal-header-size: var(--fio-sys-typography-title-small-size);
+	--fio-component-modal-header-tracking: var(--fio-sys-typography-title-small-tracking);
+	--fio-component-modal-header-weight: var(--fio-sys-typography-title-small-weight);
+	--fio-component-modal-header-border-bottom-width: var(--fio-sys-card-border-sm);
+	--fio-component-modal-header-border-bottom-color: var(--fio-sys-color-neutral-medium);
+
+	--fio-component-modal-body-padding-y: var(--fio-sys-space-padding-md);
+	--fio-component-modal-body-padding-x: var(--fio-sys-space-padding-md);
+
+	--fio-component-modal-footer-padding-y: var(--fio-sys-space-padding-md);
+	--fio-component-modal-footer-padding-x: var(--fio-sys-space-padding-md);
+
+	/* Box - Card */
+
+	--fio-component-box-simple-background-color: var(--fio-component-card-background-color);
+	--fio-component-box-simple-border-color: var(--fio-component-card-border-color);
+	--fio-component-box-simple-border-width: var(--fio-component-card-border-width);
+	--fio-component-box-simple-border-radius: var(--fio-component-card-border-radius);
+
+	--fio-component-box-simple-header-family: var(--fio-sys-typography-title-small-family);
+	--fio-component-box-simple-header-line-height: var(--fio-sys-typography-title-small-line-height);
+	--fio-component-box-simple-header-size: var(--fio-sys-typography-title-small-size);
+	--fio-component-box-simple-header-tracking: var(--fio-sys-typography-title-small-tracking);
+	--fio-component-box-simple-header-weight: var(--fio-sys-typography-title-small-weight);
+	--fio-component-box-simple-header-border-bottom-width: var(--fio-sys-card-border-sm);
+	--fio-component-box-simple-header-border-bottom-color: var(--fio-sys-color-neutral-medium);
+
+	--fio-component-box-simple-body-padding-y: var(--fio-sys-space-padding-md);
+	--fio-component-box-simple-body-padding-x: var(--fio-sys-space-padding-md);
+
+	--fio-component-box-simple-footer-padding-y: var(--fio-sys-space-padding-md);
+	--fio-component-box-simple-footer-padding-x: var(--fio-sys-space-padding-md);
+
+	/* Box - Special */
+
+	--fio-component-box-simple-background-color: var(--fio-component-card-background-color);
+	--fio-component-box-simple-border-color: var(--fio-component-card-border-color);
+	--fio-component-box-simple-border-width: var(--fio-sys-card-border-md);
+	--fio-component-box-simple-border-radius: var(--fio-component-card-border-radius);
+
+	--fio-component-box-simple-header-family: var(--fio-sys-typography-label-medium-family);
+	--fio-component-box-simple-header-line-height: var(--fio-sys-typography-label-medium-line-height);
+	--fio-component-box-simple-header-size: var(--fio-sys-typography-label-medium-size);
+	--fio-component-box-simple-header-tracking: var(--fio-sys-typography-label-medium-tracking);
+	--fio-component-box-simple-header-weight: var(--fio-sys-typography-label-medium-weight);
+	--fio-component-box-simple-header-transform: var(--fio-sys-typography-label-medium-transform);
+	--fio-component-box-simple-header-background: var(--fio-sys-color-accent-medium);
+	--fio-component-box-simple-header-color: var(--fio-sys-color-neutral-white);
+
+	--fio-component-box-simple-header-border-width: var(--fio-sys-card-border-sm);
+	--fio-component-box-simple-header-border-color: var(--fio-sys-color-neutral-medium);
+
+	--fio-component-box-simple-body-padding-y: var(--fio-sys-space-padding-sm);
+	--fio-component-box-simple-body-padding-x: var(--fio-sys-space-padding-sm);
+
+	/* Box - Quotation */
+
+	/* Dropdown */
+	/* List */
+	/* Popover */
+	/* Accordion */
+	/* Tabs */
+
+	/* Accordion Image (collapse)*/
+	/* Carousel */
+	/* Navbar */
+
+	/* Alerts */
+
+	/* PAGE AREAS */
+
+	/* 
+	header
+    sidebar
+    main
+		opening
+		main-title
+		second-title
+		third-title
+		page-navigation
+
+    section
+    footer 
+	*/
+
+	/* COMPONENTS */
+
+	/* Collapse (behavior) */
+	/* Offcanvas */
+}

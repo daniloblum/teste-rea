@@ -1,0 +1,40 @@
+/* --- QUOTATION --- */
+
+.quotation blockquote {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	font-family: var(--fio-sys-typography-quotation-family);
+	font-size: var(--fio-sys-typography-head-sm-size);
+	font-weight: var(--fio-sys-typography-quotation-weight);
+	line-height: var(--fio-sys-typography-quotation-line-height);
+	margin: 0;
+	padding: var(--fio-sys-spacing-padding-xl);
+}
+.quotation .card {
+	border-color: var(--fio-sys-color-primary-light);
+	background-color: var(--fio-sys-color-primary-medium-contrast);
+}
+
+.quotation blockquote span.material-symbols-rounded {
+	font-variation-settings: 'FILL' 1;
+	color: var(--fio-sys-color-primary-medium);
+	font-size: 3rem;
+	padding: 0 30px 0 0;
+}
+.quotation blockquote .quotation-body {
+	border-left: 2px solid var(--fio-sys-color-primary-medium);
+	font-family: var(--fio-sys-typography-quotation-family);
+	padding-left: 30px;
+}
+.quotation blockquote .quotation-body p {
+	color: var(--fio-sys-color-primary-dark);
+	font-family: var(--fio-sys-typography-quotation-family);
+	font-size: var(--fio-sys-typography-head-sm-size);
+}
+.quotation blockquote .quotation-autor {
+	color: var(--fio-sys-color-primary-dark);
+	font-family: var(--fio-sys-typography-paragraph-family);
+	font-size: var(--fio-sys-typography-paragraph-sm-size);
+	float: right;
+}
