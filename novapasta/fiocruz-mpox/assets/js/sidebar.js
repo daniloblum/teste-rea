@@ -4,7 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 	// --- Ajuste de altura da página (DESKTOP) ---
 
-	console.log("teste1");
+	console.log("teste2 - incluir mais um nivel de pasta");
 
 	(function () {
 		const sidebarEl = document.getElementById("sidebar");
