@@ -1,10 +1,8 @@
-// sidebar.js - versão 1.3.1 (corrigida)
+// sidebar.js - versão 1.4 (corrigida)
 // Autores: Aline Polycarpo, Danilo Blum, Luciana Nunes
 
 document.addEventListener("DOMContentLoaded", () => {
 	// --- Ajuste de altura da página (DESKTOP) ---
-
-	console.log("teste2 - incluir mais um nivel de pasta");
 
 	(function () {
 		const sidebarEl = document.getElementById("sidebar");
